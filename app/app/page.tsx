@@ -1,30 +1,20 @@
-// app/app/page.tsx
 'use client';
 
-import { useWallet } from '@mysten/dapp-kit';
-import { useEffect, useState } from 'react';
+import { useWallet } from '@suiet/wallet-kit';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function AppPage() {
-  const { connected, currentWallet } = useWallet();
+  const { connected, address } = useWallet();
   const router = useRouter();
-  const [address, setAddress] = useState<string | null>(null);
 
   useEffect(() => {
     if (!connected) {
-      // Redirect back to migrate if not connected
       router.push('/migrate');
-      return;
     }
+  }, [connected, router]);
 
-    if (currentWallet && currentWallet.accounts && currentWallet.accounts.length > 0) {
-      setAddress(currentWallet.accounts[0].address);
-    }
-  }, [connected, currentWallet, router]);
-
-  if (!connected) {
-    return null; // Will redirect in the useEffect
-  }
+  if (!connected) return null;
 
   return (
     <main className="pt-24 px-6">
@@ -38,7 +28,6 @@ export default function AppPage() {
           </p>
         </div>
         
-        {/* Your app content here */}
         <div className="text-center pt-4">
           <p>Your app is ready!</p>
         </div>

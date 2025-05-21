@@ -2,9 +2,6 @@
 import { AppProps } from "next/app";
 import { WalletProvider } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
-import "../styles/globals.css";
-import "../styles/App.css";
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WalletProvider>
